@@ -1,0 +1,51 @@
+{
+    "ignition": {
+        "version": "3.1.0"
+    },
+    "passwd": {
+        "users": [
+            {
+                "name": "core",
+                "sshAuthorizedKeys": [
+                    ""
+                ]
+            },
+            {
+                "name": "mcltn",
+                "sshAuthorizedKeys": [
+                    "ssh-rsa AAAAB3Nza......."
+                ]
+            }
+        ]
+    },
+    "storage": {
+        "files": [
+            {
+                "path": "/etc/hostname",
+                "mode": 420,
+                "overwrite": true,
+                "contents": {
+                    "source": "data:,$$HOSTNAME$$"
+                }
+            },
+            {
+                "overwrite": true,
+                "path": "/usr/local/bin/ibm-host-attach.sh",
+                "contents": {
+                    "compression": "gzip",
+                    "source": "data:text/plain;base64,H4sIAAAAAAAA......."
+                },
+                "mode": 493
+            }
+        ]
+    },
+    "systemd": {
+        "units": [
+            {
+                "contents": "[Unit]\nDescription=IBM Host Attach Service\nWants=network-online.target\nAfter=network-online.target\n[Service]\nEnvironment=\"PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\"\nExecStart=/usr/local/bin/ibm-host-attach.sh\nRestart=on-failure\nRestartSec=5\n[Install]\nWantedBy=multi-user.target",
+                "enabled": true,
+                "name": "ibm-host-attach.service"
+            }
+        ]
+    }
+}

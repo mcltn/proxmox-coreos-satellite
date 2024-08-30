@@ -1,0 +1,19 @@
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+*.priv
+*.prv
+
+**/.terraform.*
+**/terraform.tfvars
+
+# ignition files
+*.ign
+
+# iso folder
+**/iso/*
+
+*.DS_Store
